@@ -1,45 +1,51 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
 function App(){
-  
+  const [squares, setSquare] = useState(Array(9).fill(null));
+
+
+  function handleClick(){
+    console.log("hello prettey")
+  }
   return(
-    <div
-    className='app'
-    >
-      <h1>Odin-recipes</h1>
-      <Menu/>
+    <div>
+      <Heading/>
+      <div>
+        <Square value={squares[0]} onSquareClick={handleClick}/>
+        <Square value={squares[1]} onSquareClick={handleClick} />
+        <Square value={squares[2]} onSquareClick={handleClick} />
+      </div>
+      <div>
+        <Square value={squares[3]} onSquareClick={handleClick}/>
+        <Square value={squares[4]} onSquareClick={handleClick}/>
+        <Square value={squares[5]} onSquareClick={handleClick}/>
+      </div>
+
+      <div>
+        <Square value={squares[6]} onSquareClick={handleClick}/>
+        <Square value={squares[7]} onSquareClick={handleClick}/>
+        <Square value={squares[8]} onSquareClick={handleClick}/>
+      </div>
+      
     </div>
   )
 }
-
-export function Menu(){
-  const items=[
-    "Gluten-Free Carbonara",
-    "Banana-split(Homemade)",
-    "Steamed Eggs"
-  ]
-  const listItems = items.map(item=>
-    <li><MeunItem name={item}/></li>
-  )
+export function Square({value, onSquareClick}){
+  
   return(
-    <ul
-    className='menu'
-    >
-      {listItems}
-    </ul>
+    <button className='square' onClick={onSquareClick}> {value} </button>
   )
 }
 
-export function MeunItem(props){
-  function loadRecipe(){
-    alert(props.name)
-    
-  }
+export function Heading(){
   return(
-    <button onClick={loadRecipe}>{props.name}</button>
+    <>
+      <h1>Making a tic tac toe</h1>
+
+    </>
   )
 }
+
 export default App

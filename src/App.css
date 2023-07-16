@@ -4,10 +4,12 @@
   padding: 2rem;
   text-align: center;
 }
+.square{
+  border: solid   white;
 
-body{
-  background-color: burlywood;
+  
 }
+
 .butt{
   background-color: blue;
 
@@ -15,20 +17,9 @@ body{
 .app{
   display: flex;
   flex-direction: column;
-  gap:1em;
 }
 
-.menu{
-  background-color: yellow;
-  padding: 1em;
 
-}
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }

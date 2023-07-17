@@ -10,10 +10,7 @@
   
 }
 
-.butt{
-  background-color: blue;
 
-}
 .app{
   display: flex;
   flex-direction: column;

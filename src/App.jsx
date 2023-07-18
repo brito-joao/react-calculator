@@ -1,99 +1,87 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 //I will try to make a rock paper scissors game
 // In react!!! good luck for me!!
 function App(){
-  let   [points,setPoints] = useState(0);
-  let [pc_points,setPcPoints] = useState(0);
-  let [color, setColor] = useState("white");
-  let [pc_hand, setPcHand] = useState("");
-  const options = [0,1,2];
-  const emoji_options = ["✋","✌️","✊"];
-  const cases = [
-    [0,1,-1],
-    [-1,0,1],
-    [1,-1,0]
-  ]
-  function CompareComputer(name){
-    let computerGuess= options[Math.floor(Math.random()*options.length)];
-    if(!(cases[computerGuess][name]==-1)){
-      setPoints(points+ cases[computerGuess][name])
-      setPcHand(emoji_options[computerGuess])      
-      if(cases[computerGuess][name]==0){
-        setColor("white");
-      }else{
-        setColor("green")
-      }
+  const [expression, setExpression] = useState("");
+  const [ended, setEnded] = useState(false);
+  function pressedNumber(value){
+    if(ended){
+      setExpression(`${value}`);
+      setEnded(false);
+      
     }else{
-      setColor("red")
-      setPcPoints(pc_points+1)
+      let new_var= `${expression}${value}`
+      setExpression(new_var)
+    }
+    
+    
+  }
+
+  function pressedOperator(value){
+    const options = ["/","x","-","+"]
+    console.log(value)
+    //seeing if the button pressed was the "="
+    if(!options.includes(value)){
+      
+      setExpression(solver(expression))
+      setEnded(true);
+      
+    }else{
+      setExpression(`${expression}${value}`);
     }
   }
-  function resetPoints(){
-    setPoints(0);
-    setPcPoints(0);
-    setColor("white");
-  }
+  useEffect(()=>{
+    
+  },[expression])
   return(
-    <div style={{
-      backgroundColor:color,
-      width:"40em",
-      height:"40em",
-      display:"flex",
-      flexDirection:"column",
-      alignItems:"center",
-      justifyContent:"center"
-    }}>
-    <Points point={points} pcp={pc_points}/>
-    <PcHand choice={pc_hand}/>
-    <div >
-      <Options name={"✋"} handleClick={()=> CompareComputer(0)}/>
-      <Options name={"✌️"} handleClick={()=>CompareComputer(1)}/>
-      <Options name={"✊"} handleClick={()=>CompareComputer(2)}/>
-    </div>
-    <Reset handleClick={resetPoints}/>
+    <div className='buttons'>
+      <Display toDisplay={expression}/>
+      <button>Ac</button>
+      <button>+/-</button>
+      <button>%</button>
+      <Operator handleClick={()=>{pressedOperator("/")}} operator={"/"}/>
+      <Number handleClick={()=>{pressedNumber(7)}} number={7}/>
+      <Number handleClick={()=>{pressedNumber(8)}} number={8}/>
+      <Number handleClick={()=>{pressedNumber(9)}} number={9}/>
+      <Operator handleClick={()=>{pressedOperator("x")}} operator={"x"}/>
+      <Number handleClick={()=>{pressedNumber(4)}} number={4}/>
+      <Number handleClick={()=>{pressedNumber(5)}} number={5}/>
+      <Number handleClick={()=>{pressedNumber(6)}} number={6}/>
+      <Operator handleClick={()=>{pressedOperator("-")}} operator={"-"}/>
+      <Number handleClick={()=>{pressedNumber(1)}} number={1}/>
+      <Number handleClick={()=>{pressedNumber(2)}} number={2}/>
+      <Number handleClick={()=>{pressedNumber(3)}} number={3}/>
+      <Operator handleClick={()=>{pressedOperator("+")}} operator={"+"}/>
+      <Number handleClick={()=>{pressedNumber(0)}} number={0}/>
+      <button></button>
+      <button>,</button>
+      <Operator handleClick={()=>{pressedOperator("=")}} operator={"="}/>
+      
     </div>
   )
-}
-export function Options({name,handleClick}){
 
+}
+export function Display({toDisplay}){
   return(
-    <
-      button
-      style={{
-        fontSize:"1.3em",
-        marginInline:"0.3em",
-        backgroundColor:"RGBA(0,0,0,0.5)"
-      }}
-      onClick={handleClick}
-    >
-    {name}
-    </button>
+    <div>{toDisplay}</div>
   )
 }
-export function Points({point, pcp}){
+
+export function Operator({operator,handleClick}){
   return(
-    <div
-    style={{
-      color:"black",
-      display:"flex",
-      fontSize:"0.5em",
-      gap:"30em",
-      alignItems:"center"
-    }}>
-      <h1>Points: {point}</h1>
-      <h1 style={{alignSelf:"flex-end"}}>Computer's points: {pcp}</h1>
-    </div>
+    <button className='operator' onClick={handleClick}>{operator}</button>
   )
 }
-export function PcHand({choice}){
+
+export function Number({number,handleClick}){
   return(
-    <p style={{fontSize:"3em"}}>{choice}</p>
+    <button onClick={handleClick}>{number}</button>
   )
 }
-export function Reset({handleClick}){
-  return(
-    <button onClick={handleClick}>↻</button>
-  )
+
+function solver(string){
+  console.log(string)
+  return Math.floor(Math.random()*100)
 }
 export default App

@@ -80,8 +80,80 @@ export function Number({number,handleClick}){
   )
 }
 
+function calculateResultSimple(array,operators){
+  
+  let operator_quantities = [0,0,0,0];
+  
+  array.forEach((item)=>{
+    if(operators.includes(item)){
+      operator_quantities[operators.indexOf(item)]+=1;
+    }
+  })
+  //find the order of operations
+  console.log(operator_quantities,"hello people");
+
+  if(operator_quantities[0] || operator_quantities[1]){
+    console.log("hello wolrdo",array);
+  }
+  let temporary_result;
+  //first for the "x" and "/"'s
+  for(var i=0; i<(operator_quantities[0]+operator_quantities[1]);i++){
+    array.forEach((item,index)=>{
+      if(item=="x" || item=="/"){
+      //if operator is not the last item, nor the first
+      //if side items arent other operators
+      //if side items are "-" 
+      
+      if(array.at(-1)==item){
+        console.log("you dumb idiot, you can't do that",item);
+        array.splice(array.length-1,1);
+      }else{
+        if(item=="x"){
+          temporary_result = parseFloat(array[index-1])*parseFloat(array[index+1])
+          
+        }else{
+          temporary_result = (parseFloat(array[index-1])/parseFloat(array[index+1])).toFixed(2)
+        }
+        console.log("part1",array);
+        console.log("tempa sda", temporary_result)
+        array[index]=temporary_result;
+        array.splice(index-1,1);
+        array.splice(index,1);
+        
+        console.log("part2",array);
+        
+      }
+      console.log("hello asdlfajs",array);
+    }
+    })
+  }
+    
+  
+  //find if the operator is in the middle
+
+  //calculate result with 2d array
+
+  
+  return array[0];
+}
+
 function solver(string){
-  console.log(string)
-  return Math.floor(Math.random()*100)
+  
+  let arrayed_expression = string.split("");
+  const operators = ["/","x","-","+"];
+  let has_operators = false;
+  arrayed_expression.forEach((item)=>{
+    if(operators.includes(item)){
+      console.log("found one!",item);
+      has_operators=true;
+    }
+    
+  })
+  if(has_operators){
+    return calculateResultSimple(arrayed_expression,operators);
+  }else{
+    return Math.floor(Math.random()*100)
+  }
+  
 }
 export default App

@@ -1,9 +1,15 @@
-
+body{
+  background-color: black;
+  display: flex;
+  align-items:flex-start ;
+  justify-content: center;
+}
 
 .buttons{
   display: grid;
   grid-template-columns: repeat( 4, 1fr);
   font-size: 2em;
+  background-color: black;
   
 }
 .operator{
@@ -12,6 +18,7 @@
 }
 button{
   max-width: 25vw;
+  color: white;
 }
 .buttons :first-child{
   background-color: black;
